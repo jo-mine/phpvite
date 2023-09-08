@@ -1,0 +1,14 @@
+version: '3'
+services:
+  apache:
+    build:
+      context: ./docker
+      dockerfile: ./apache/Dockerfile
+    image: apacheimage
+    container_name: apachecontainer
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/usr/local/src
+    tty: true
+    privileged: true
