@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "src/frontend/assets"
+		},
+		{
+			"path": "src/frontend/testassets"
 		}
 	],
 	"settings": {}
