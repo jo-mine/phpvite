@@ -6,20 +6,26 @@ import { fileURLToPath } from 'node:url';
 
 const getInputs = (): Record<string, string> => {
   const target = Object.fromEntries(
-    glob.sync('src/**/*.ts').map(file => [
-      // This remove `src/` as well as the file extension from each
-      // file, so e.g. src/nested/foo.js becomes nested/foo
+    glob.sync(['src/**/*.ts'], { ignore: 'src/base' }).map(file => [
       path.relative(
         'src',
         file.slice(0, file.length - path.extname(file).length)
       ),
-      // This expands the relative paths to absolute paths, so e.g.
-      // src/nested/foo becomes /project/src/nested/foo.js
       fileURLToPath(new URL(file, import.meta.url))
     ])
   )
-  log(target)
-  return target
+  const sasstarget = Object.fromEntries(
+    glob.sync(['sass/**/*.scss']).map(file => [
+      path.relative(
+        'sass',
+        file.slice(0, file.length - path.extname(file).length)
+      ),
+      fileURLToPath(new URL(file, import.meta.url))
+    ])
+  )
+  const result = { ...target, ...sasstarget }
+  log(result)
+  return result
 }
 
 // https://vitejs.dev/config/
@@ -27,10 +33,12 @@ export default defineConfig({
   build: {
     emptyOutDir: true,
     minify: false,
+    copyPublicDir: false,
     rollupOptions: {
       input: getInputs(),
       output: {
-        entryFileNames: '[name].js'
+        entryFileNames: 'js/[name].js',
+        assetFileNames: 'css/[name].[ext]',
       }
     }
   },

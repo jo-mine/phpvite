@@ -1,0 +1,11 @@
+.card {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 4px;
+
+    &.--header {
+        border-bottom: 1px solid black;
+    }
+
+    &.--body {}
+}
