@@ -3,7 +3,10 @@ FROM rockylinux/rockylinux:9
 RUN dnf -y update
 RUN dnf -y install \
     php \
-    httpd
+    httpd \
+    zip \
+    which \
+    ncurses
 
 COPY --from=composer /usr/bin/composer /bin/composer
 
