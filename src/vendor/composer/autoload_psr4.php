@@ -13,5 +13,5 @@ return array(
     'Symfony\\Component\\Validator\\' => array($vendorDir . '/symfony/validator'),
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
     'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
-    'App\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/'),
 );
