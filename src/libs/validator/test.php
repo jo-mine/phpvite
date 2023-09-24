@@ -2,19 +2,19 @@
 
 namespace App\libs;
 
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use Symfony\Component\Validator\Constraints as Assert;
 use App\libs\validator\Constrains as AppAssert;
+use App\libs\validator\ValidateViolationList;
+use App\libs\validator\Constrains\UniqueFields;
 use Symfony\Component\Validator\Validation;
 
-function validate($input) {
+function validate($input)
+{
     $validator = Validation::createValidator();
-
     $groups = new Assert\GroupSequence(['Default', 'custom']);
-    
     $constraint = new Assert\Collection([
-        // the keys correspond to the keys in the input array
         'name' => new Assert\Collection([
             'first_name' => new Assert\Length(['min' => 101]),
             'last_name' => new Assert\Length(['min' => 1]),
@@ -50,7 +50,8 @@ function validate($input) {
             new Assert\Type('string'),
         ]
     ]);
-    
+    // print_r($constraint->fields);
+    print_r($constraint->getNestedConstraints());
     $violations = $validator->validate($input, $constraint, $groups);
     return $violations;
 }
@@ -72,9 +73,6 @@ $input = [
         ['key' => 'key', 'label' => 'this is label2'],
     ],
 ];
-/** @var \Symfony\Component\Validator\ConstraintViolation $v */
-foreach(validate($input) as $v) {
-    // echo $v;
-    print_r(array_keys((array)$v));
-    echo "\n";
-}
+
+$violationList = new ValidateViolationList(validate($input));
+// print_r($violationList->getMessageHash());

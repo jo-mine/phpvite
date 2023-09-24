@@ -10,5 +10,8 @@
 			"path": "src/frontend/testassets"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"intelephense.environment.phpVersion": "8.0.3",
+		"php.validate.executablePath": "/usr/bin/php"
+	}
 }
