@@ -17,14 +17,6 @@
         "no-trailing-spaces": [
             "error"
         ],
-        "no-restricted-imports": [
-            "error",
-            {
-                "patterns": [
-                    "**/*"
-                ]
-            }
-        ],
         "@typescript-eslint/semi": "error",
         "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
         "semi-spacing": ["error", {"after": true, "before": false}],
