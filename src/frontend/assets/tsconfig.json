@@ -10,16 +10,30 @@
     ],
     "skipLibCheck": true,
     /* Bundler mode */
+    "moduleResolution": "Node10",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "noEmit": true,
+    "jsx": "preserve",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    //
+    "outDir": "dist/",
+    "baseUrl": "./"
   },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }
