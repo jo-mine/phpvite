@@ -1,10 +1,13 @@
 <?php
+
 namespace App\libs\validator\Constrains;
 
 use Symfony\Component\Validator\Constraints\Unique;
+use Symfony\Component\Validator\Constraints\UniqueValidator;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 
-class UniqueFields extends Unique {
+class ListUnique extends Unique
+{
 
     public function __construct(
         array $fieldKeys,
@@ -14,9 +17,9 @@ class UniqueFields extends Unique {
         mixed $payload = null
     ) {
         if (empty($fieldKeys)) {
-            throw new InvalidArgumentException('parameter "fieldKeys" should be not empty.');
+            throw new InvalidArgumentException('parameter "fieldKeys" should not be empty.');
         }
-        $normalizer = function($v) use($fieldKeys) {
+        $normalizer = function ($v) use ($fieldKeys) {
             return array_intersect_key($v, array_flip($fieldKeys));
         };
         parent::__construct(
@@ -24,6 +27,12 @@ class UniqueFields extends Unique {
             $message,
             $normalizer,
             $groups,
-            $payload);
+            $payload
+        );
+    }
+
+    public function validatedBy()
+    {
+        return UniqueValidator::class;
     }
 }
